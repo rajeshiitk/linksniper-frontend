@@ -16,6 +16,18 @@
   }
 }
 
+@layer components {
+  .navbar-active .hamburger div:first-child {
+    @apply rotate-45 translate-y-1.5;
+  }
+  .navbar-active .hamburger div:last-child {
+    @apply -rotate-45 -translate-y-1;
+  }
+  .navbar-active div:first-child div:first-child div:last-child {
+    @apply block lg:flex;
+  }
+}
+/* 
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -24,4 +36,4 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+} */
