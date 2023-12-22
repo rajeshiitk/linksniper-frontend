@@ -42,6 +42,16 @@ const SignUp = () => {
                   <div className="relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                     <input
                       id=""
+                      type="text"
+                      placeholder="Full name"
+                      className="w-full bg-transparent pb-3  border-b border-gray-300 dark:placeholder-gray-300 dark:border-gray-600 outline-none  invalid:border-red-400 transition"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div className="relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
+                    <input
+                      id=""
                       type="email"
                       placeholder="Email address"
                       className="w-full bg-transparent pb-3  border-b border-gray-300 dark:placeholder-gray-300 dark:border-gray-600 outline-none  invalid:border-red-400 transition"
@@ -66,6 +76,23 @@ const SignUp = () => {
                       type="password"
                       placeholder="confirm password"
                       className="w-full bg-transparent pb-3  border-b border-gray-300 dark:placeholder-gray-300 dark:border-gray-600 outline-none  invalid:border-red-400 transition"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col items-end">
+                  <div className="w-full relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
+                    <input
+                      id=""
+                      type="file"
+                      placeholder="Profile"
+                      className="w-full bg-transparent pb-3  border-b border-gray-300 dark:placeholder-gray-300 dark:border-gray-600 outline-none  invalid:border-red-400 transition text-sm text-grey-500
+                        file:mr-5 file:py-2 file:px-6
+                        file:rounded-full file:border-0
+                        file:text-sm file:font-medium
+                        file:bg-blue-50 file:text-blue-700
+                        hover:file:cursor-pointer hover:file:bg-sky-400
+                        hover:file:text-white hover:file:shadow-lg"
                     />
                   </div>
                 </div>
