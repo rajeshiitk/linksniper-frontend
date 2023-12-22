@@ -1,7 +1,58 @@
+"use client";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import React from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
+
+const MAX_FILE_SIZE = 500000;
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
+
+const FieldValuesSchema = z.object({
+  name: z.string().min(1, { message: "First name is required" }).max(50),
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters" }),
+  confirmPassword: z
+    .string()
+    .min(8, { message: "Password must be at least 8 characters" }),
+  // profile image
+
+  profile: z
+    .any()
+    .refine((files) => files?.length == 1, "Image is required.")
+    .refine(
+      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
+      `Max file size is 5MB.`
+    )
+    .refine(
+      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      ".jpg, .jpeg, .png and .webp files are accepted."
+    ),
+});
+
+type FieldValues = z.infer<typeof FieldValuesSchema>;
 
 const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FieldValues>({
+    resolver: zodResolver(FieldValuesSchema),
+  });
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    console.log(data);
+    // Do your form submission stuff here
+  };
+
   return (
     <>
       <div className=" h-screen xl:container px-12 sm:px-0 mx-auto">
@@ -37,53 +88,74 @@ const SignUp = () => {
                 </button>
               </div>
 
-              <form action="" className="mt-10 space-y-8 dark:text-white">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="mt-10 space-y-8 dark:text-white"
+              >
                 <div>
                   <div className="relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                     <input
-                      id=""
+                      id="name"
                       type="text"
                       placeholder="Full name"
                       className="w-full bg-transparent pb-3  border-b border-gray-300 dark:placeholder-gray-300 dark:border-gray-600 outline-none  invalid:border-red-400 transition"
+                      {...register("name")}
                     />
                   </div>
+                  {errors.name?.message && (
+                    <p className="text-red-700">{errors.name?.message}</p>
+                  )}
                 </div>
                 <div>
                   <div className="relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                     <input
-                      id=""
+                      id="email"
                       type="email"
                       placeholder="Email address"
                       className="w-full bg-transparent pb-3  border-b border-gray-300 dark:placeholder-gray-300 dark:border-gray-600 outline-none  invalid:border-red-400 transition"
+                      {...register("email")}
                     />
                   </div>
+                  {errors.email?.message && (
+                    <p className="text-red-700">{errors.email?.message}</p>
+                  )}
                 </div>
 
                 <div className="flex flex-col items-end">
                   <div className="w-full relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                     <input
-                      id=""
+                      id="password"
                       type="password"
                       placeholder="Password"
                       className="w-full bg-transparent pb-3  border-b border-gray-300 dark:placeholder-gray-300 dark:border-gray-600 outline-none  invalid:border-red-400 transition"
+                      {...register("password")}
                     />
                   </div>
+                  {errors.password?.message && (
+                    <p className="text-red-700">{errors.password?.message}</p>
+                  )}
                 </div>
                 <div className="flex flex-col items-end">
                   <div className="w-full relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                     <input
-                      id=""
+                      id="confirmPassword"
                       type="password"
                       placeholder="confirm password"
                       className="w-full bg-transparent pb-3  border-b border-gray-300 dark:placeholder-gray-300 dark:border-gray-600 outline-none  invalid:border-red-400 transition"
+                      {...register("confirmPassword")}
                     />
                   </div>
+                  {errors.confirmPassword?.message && (
+                    <p className="text-red-700">
+                      {errors.confirmPassword?.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex flex-col items-end">
                   <div className="w-full relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                     <input
-                      id=""
+                      id="profile"
                       type="file"
                       placeholder="Profile"
                       className="w-full bg-transparent pb-3  border-b border-gray-300 dark:placeholder-gray-300 dark:border-gray-600 outline-none  invalid:border-red-400 transition text-sm text-grey-500
@@ -93,12 +165,23 @@ const SignUp = () => {
                         file:bg-blue-50 file:text-blue-700
                         hover:file:cursor-pointer hover:file:bg-sky-400
                         hover:file:text-white hover:file:shadow-lg"
+                      accept=".jpg, .jpeg, .png"
+                      {...register("profile")}
                     />
                   </div>
+                  {/* {errors.profile?.message && (
+                    <p className="text-red-700">{errors.profile?.message }</p>
+                  )} */}
                 </div>
 
                 <div>
-                  <button className="w-full rounded-full bg-sky-500 dark:bg-sky-400 h-11 flex items-center justify-center px-6 py-3 transition hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800">
+                  <button
+                    onClick={() => {
+                      console.log(errors);
+                    }}
+                    type="submit"
+                    className="w-full rounded-full bg-sky-500 dark:bg-sky-400 h-11 flex items-center justify-center px-6 py-3 transition hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800"
+                  >
                     <span className="text-base font-semibold text-white dark:text-gray-900">
                       Sign Up
                     </span>
