@@ -3,7 +3,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
 import { z } from "zod";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const MAX_FILE_SIZE = 500000;
 const ACCEPTED_IMAGE_TYPES = [
@@ -50,11 +53,13 @@ const SignUp = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
+    toast.success("Account created successfully");
     // Do your form submission stuff here
   };
 
   return (
     <>
+      <ToastContainer />
       <div className=" h-screen xl:container px-12 sm:px-0 mx-auto">
         <div className="mx-auto sm:w-max">
           <div className="m-auto ">
@@ -152,7 +157,7 @@ const SignUp = () => {
                   )}
                 </div>
 
-                <div className="flex flex-col items-end">
+                <div className="flex flex-col ">
                   <div className="w-full relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                     <input
                       id="profile"
@@ -169,16 +174,17 @@ const SignUp = () => {
                       {...register("profile")}
                     />
                   </div>
-                  {/* {errors.profile?.message && (
-                    <p className="text-red-700">{errors.profile?.message }</p>
-                  )} */}
+                  <Image
+                    src="next.svg"
+                    width={200}
+                    height={200}
+                    alt="image"
+                    className="mt-4"
+                  />
                 </div>
 
                 <div>
                   <button
-                    onClick={() => {
-                      console.log(errors);
-                    }}
                     type="submit"
                     className="w-full rounded-full bg-sky-500 dark:bg-sky-400 h-11 flex items-center justify-center px-6 py-3 transition hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800"
                   >
