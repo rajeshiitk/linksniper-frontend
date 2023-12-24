@@ -1,60 +1,50 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
-import { z } from "zod";
-
+import { signUp, signUpSchema } from "@/validationSchema/signUp.validation";
 import "react-toastify/dist/ReactToastify.css";
-
-const MAX_FILE_SIZE = 500000;
-const ACCEPTED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/webp",
-];
-
-const FieldValuesSchema = z.object({
-  name: z.string().min(1, { message: "First name is required" }).max(50),
-  email: z.string().email({ message: "Invalid email address" }),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" }),
-  confirmPassword: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" }),
-  // profile image
-
-  profile: z
-    .any()
-    .refine((files) => files?.length == 1, "Image is required.")
-    .refine(
-      (files) => files?.[0]?.size <= MAX_FILE_SIZE,
-      `Max file size is 5MB.`
-    )
-    .refine(
-      (files) => ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      ".jpg, .jpeg, .png and .webp files are accepted."
-    ),
-});
-
-type FieldValues = z.infer<typeof FieldValuesSchema>;
+import { useSignUpUserMutation } from "@/provider/redux/queries/auth.query";
+import {
+  FetchBaseQueryError,
+  // Remove the duplicate import statement for 'FetchBaseQueryError'
+  // Remove the import statement for 'SerializedError'
+} from "@reduxjs/toolkit/query/react";
 
 const SignUp = () => {
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [signUpUser, signUpUserResponse] = useSignUpUserMutation();
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm<FieldValues>({
-    resolver: zodResolver(FieldValuesSchema),
+  } = useForm<signUp>({
+    resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-    toast.success("Account created successfully");
-    // Do your form submission stuff here
+  const onSubmit: SubmitHandler<signUp> = async (dat) => {
+    console.log(register("profile") || "no file");
+    // TODO verify confirm password
+    console.log(dat);
+    const formData = new FormData();
+    formData.append("name", dat.name);
+    formData.append("email", dat.email);
+    formData.append("password", dat.password);
+    formData.append("image", dat.profile[0]);
+
+    const { data, error } = (await signUpUser(formData)) as {
+      data: any | undefined;
+      error: FetchBaseQueryError;
+    };
+
+    if (error) {
+      toast.error(error?.data?.message || "Something went wrong");
+    } else {
+      toast.success({ data }?.data?.message || "Your account has been created");
+    }
   };
 
   return (
@@ -171,25 +161,39 @@ const SignUp = () => {
                         hover:file:cursor-pointer hover:file:bg-sky-400
                         hover:file:text-white hover:file:shadow-lg"
                       accept=".jpg, .jpeg, .png"
-                      {...register("profile")}
+                      // {...register("profile")}
+                      onChange={(e) => {
+                        setValue("profile", e.target.files);
+                        if (e.target.files && e.target.files[0]) {
+                          setProfileImage(
+                            URL.createObjectURL(e.target.files[0])
+                          );
+                        }
+                      }}
                     />
                   </div>
-                  <Image
-                    src="next.svg"
-                    width={200}
-                    height={200}
-                    alt="image"
-                    className="mt-4"
-                  />
+                  {errors?.profile?.message && (
+                    <p className="text-red-700">{errors?.profile?.message}</p>
+                  )}
+                  {profileImage && (
+                    <Image
+                      src={profileImage}
+                      width={200}
+                      height={200}
+                      alt="image"
+                      className="mt-4"
+                    />
+                  )}
                 </div>
 
                 <div>
                   <button
+                    disabled={signUpUserResponse.isLoading}
                     type="submit"
                     className="w-full rounded-full bg-sky-500 dark:bg-sky-400 h-11 flex items-center justify-center px-6 py-3 transition hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800"
                   >
                     <span className="text-base font-semibold text-white dark:text-gray-900">
-                      Sign Up
+                      {signUpUserResponse.isLoading ? "Loading..." : "Sign Up"}
                     </span>
                   </button>
                   <button type="reset" className="-ml-3 w-max p-3">

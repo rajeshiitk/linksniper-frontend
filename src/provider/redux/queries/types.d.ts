@@ -1,6 +1,5 @@
 export type Pokemon = {
-  name: string;
-  url: string;
+  data: any;
 };
 export type SignUpUserMutationVariables = {
   email: string;
