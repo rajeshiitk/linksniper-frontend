@@ -1,4 +1,5 @@
 "use client";
+import { ILogin } from "@/validationSchema/login.validation";
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -7,6 +8,11 @@ interface UserData {
   email: string;
   password: string;
   image: File;
+}
+
+interface UserLoginData {
+  email: string;
+  password: string;
 }
 
 // Define a service using a base URL and expected endpoints
@@ -21,9 +27,16 @@ export const authApi = createApi({
         body: obj,
       }),
     }),
+    loginUser: builder.mutation<UserLoginData, any>({
+      query: (obj) => ({
+        url: `/auth/login`,
+        method: "POST",
+        body: obj,
+      }),
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useSignUpUserMutation } = authApi;
+export const { useSignUpUserMutation, useLoginUserMutation } = authApi;

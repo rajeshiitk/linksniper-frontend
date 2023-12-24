@@ -36,4 +36,4 @@ export const signUpSchema = z
     path: ["confirmPassword"], // path of error
   });
 
-export type signUp = z.infer<typeof signUpSchema>;
+export type ISignUp = z.infer<typeof signUpSchema>;

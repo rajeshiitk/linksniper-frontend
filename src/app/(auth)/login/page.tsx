@@ -1,10 +1,47 @@
+"use client";
+import { useLoginUserMutation } from "@/provider/redux/queries/auth.query";
+import { ILogin, loginSchema } from "@/validationSchema/login.validation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
+  const [loginUser, loginUserResponse] = useLoginUserMutation();
+  const router = useRouter();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ILogin>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit: SubmitHandler<ILogin> = async (dat) => {
+    const { data, error } = (await loginUser(dat)) as {
+      data: any | undefined;
+      error: FetchBaseQueryError;
+    };
+    if (error) {
+      toast.error(error?.data?.message);
+    } else {
+      console.log(data);
+      if (data?.token) {
+        localStorage.setItem("token", data?.token);
+        toast.success(data?.message);
+        router.replace("/");
+      }
+    }
+  };
   return (
     <>
+      <ToastContainer />
+
       <div className=" h-screen xl:container px-12 sm:px-0 mx-auto ">
         <div
           aria-hidden="true"
@@ -48,27 +85,38 @@ const Login = () => {
                 </button>
               </div>
 
-              <form action="" className="mt-10 space-y-8 dark:text-white">
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="mt-10 space-y-8 dark:text-white"
+              >
                 <div>
                   <div className="relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                     <input
-                      id=""
+                      id="email"
                       type="email"
                       placeholder="Email address"
                       className="w-full bg-transparent pb-3  border-b border-gray-300 dark:placeholder-gray-300 dark:border-gray-600 outline-none  invalid:border-red-400 transition"
+                      {...register("email")}
                     />
                   </div>
+                  {errors.email?.message && (
+                    <p className="text-red-700">{errors.email?.message}</p>
+                  )}
                 </div>
 
                 <div className="flex flex-col items-end">
                   <div className="w-full relative before:absolute before:bottom-0 before:h-0.5 before:left-0 before:origin-right focus-within:before:origin-left before:right-0 before:scale-x-0 before:m-auto before:bg-sky-400 dark:before:bg-sky-800 focus-within:before:!scale-x-100 focus-within:invalid:before:bg-red-400 before:transition before:duration-300">
                     <input
-                      id=""
+                      id="password"
                       type="password"
                       placeholder="Password"
                       className="w-full bg-transparent pb-3  border-b border-gray-300 dark:placeholder-gray-300 dark:border-gray-600 outline-none  invalid:border-red-400 transition"
+                      {...register("password")}
                     />
                   </div>
+                  {errors.password?.message && (
+                    <p className="text-red-700">{errors.password?.message}</p>
+                  )}
                   <button type="reset" className="-mr-3 w-max p-3">
                     <span className="text-sm tracking-wide text-sky-600 dark:text-sky-400">
                       Forgot password ?
@@ -77,13 +125,15 @@ const Login = () => {
                 </div>
 
                 <div>
-                  <Link href="/">
-                    <button className="w-full rounded-full bg-sky-500 dark:bg-sky-400 h-11 flex items-center justify-center px-6 py-3 transition hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800">
-                      <span className="text-base font-semibold text-white dark:text-gray-900">
-                        Login
-                      </span>
-                    </button>
-                  </Link>
+                  <button
+                    disabled={loginUserResponse.isLoading}
+                    type="submit"
+                    className="w-full rounded-full bg-sky-500 dark:bg-sky-400 h-11 flex items-center justify-center px-6 py-3 transition hover:bg-sky-600 focus:bg-sky-600 active:bg-sky-800"
+                  >
+                    <span className="text-base font-semibold text-white dark:text-gray-900">
+                      {loginUserResponse.isLoading ? "Loading..." : "Login"}
+                    </span>
+                  </button>
                   <Link href="sign-up">
                     <button type="reset" className="-ml-3 w-max p-3">
                       <span className="text-sm tracking-wide text-sky-600 dark:text-sky-400">

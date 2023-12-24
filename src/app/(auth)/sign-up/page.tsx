@@ -4,14 +4,10 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
-import { signUp, signUpSchema } from "@/validationSchema/signUp.validation";
+import { ISignUp, signUpSchema } from "@/validationSchema/signUp.validation";
 import "react-toastify/dist/ReactToastify.css";
 import { useSignUpUserMutation } from "@/provider/redux/queries/auth.query";
-import {
-  FetchBaseQueryError,
-  // Remove the duplicate import statement for 'FetchBaseQueryError'
-  // Remove the import statement for 'SerializedError'
-} from "@reduxjs/toolkit/query/react";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
 
 const SignUp = () => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -21,11 +17,11 @@ const SignUp = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<signUp>({
+  } = useForm<ISignUp>({
     resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit: SubmitHandler<signUp> = async (dat) => {
+  const onSubmit: SubmitHandler<ISignUp> = async (dat) => {
     console.log(register("profile") || "no file");
     // TODO verify confirm password
     console.log(dat);
