@@ -1,10 +1,19 @@
+// import { RootState } from "@/provider/redux/store";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import LoginSignUpButton from "./navbar/LoginSignUpButton";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  // const user = useSelector((state: RootState) => state.user.user);
+
   return (
     <header className="dark:bg-slate-900/60 z-50 sticky top-0 left-0">
+      <ToastContainer />
       <input
         type="checkbox"
         name="hbr"
@@ -81,24 +90,7 @@ const Navbar = () => {
                 </ul>
               </div>
 
-              <div className="w-full space-y-2 border-primary/10 dark:border-gray-700 flex flex-col -ml-1 sm:flex-row lg:space-y-0 md:w-max lg:border-l">
-                <Link
-                  href="/sign-up"
-                  className="relative flex h-9 ml-auto items-center justify-center sm:px-6 before:absolute before:inset-0 before:rounded-full focus:before:bg-primary/10 dark:focus:before:bg-primaryLight/10 before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
-                >
-                  <span className="relative text-sm font-semibold text-primary dark:text-primaryLight">
-                    Sign Up
-                  </span>
-                </Link>
-                <Link
-                  href="/login"
-                  className="relative flex h-9 ml-auto items-center justify-center sm:px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary dark:before:bg-primaryLight before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
-                >
-                  <span className="relative text-sm font-semibold text-white dark:text-gray-900">
-                    Login
-                  </span>
-                </Link>
-              </div>
+              <LoginSignUpButton />
             </div>
           </div>
         </div>

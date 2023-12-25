@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface userState {
-  user: object;
+  user: object | null;
   value: number;
 }
 
 const initialState: userState = {
-  user: {},
+  user: null,
   value: 0,
 };
 
@@ -15,6 +15,13 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setUser: (state, action: PayloadAction<object>) => {
+      state.user = action.payload;
+    },
+    removeUser: (state) => {
+      localStorage.removeItem("user");
+      state.user = null;
+    },
     increment: (state) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
@@ -32,6 +39,7 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = userSlice.actions;
+export const { increment, decrement, incrementByAmount, setUser, removeUser } =
+  userSlice.actions;
 
 export default userSlice.reducer;

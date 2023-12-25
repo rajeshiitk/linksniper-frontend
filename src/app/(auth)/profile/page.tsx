@@ -3,14 +3,16 @@ import Navbar from "@/components/shared/Navbar";
 import { useUserProfileQuery } from "@/provider/redux/queries/auth.query";
 import Image from "next/image";
 import React from "react";
+import AuthLayout from "../auth.layout";
+import { useSelector } from "react-redux";
+import { RootState } from "@/provider/redux/store";
 
 const Profile = () => {
-  const { data, isLoading, isError } = useUserProfileQuery("profile");
-  console.log(data);
+  const user = useSelector((state: RootState) => state.user.user);
   return (
-    <>
+    <AuthLayout>
       <Navbar />
-      {data && (
+      {user && (
         <div className="h-screen pt-12">
           <div className="max-w-sm mx-auto bg-white dark:bg-gray-900 rounded-lg overflow-hidden shadow-lg">
             <div className="border-b px-4 pb-6">
@@ -19,15 +21,16 @@ const Profile = () => {
                   width={20}
                   height={20}
                   className="h-32 w-32 rounded-full border-4 border-white dark:border-gray-800 mx-auto my-4"
+                  // src={`http://localhost:3001/static/${user?.avatar}`}
                   src="next.svg"
                   alt=""
                 />
                 <div className="py-2">
                   <h3 className="font-bold text-2xl text-gray-800 dark:text-white mb-1">
-                    {data?.data?.name}
+                    {user?.name}
                   </h3>
                   <div className="inline-flex text-gray-700 dark:text-gray-300 items-center">
-                    {data?.data?.email}
+                    {user?.email}
                   </div>
                 </div>
               </div>
@@ -42,13 +45,13 @@ const Profile = () => {
             </div>
             <div className="px-4 py-4">
               <div className="flex gap-2 items-center text-gray-800 dark:text-gray-300 mb-4">
-                Joined at {data?.data?.createdAt}
+                Joined at {user?.createdAt}
               </div>
             </div>
           </div>
         </div>
       )}
-    </>
+    </AuthLayout>
   );
 };
 

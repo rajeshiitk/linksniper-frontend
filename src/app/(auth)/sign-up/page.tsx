@@ -8,10 +8,12 @@ import { ISignUp, signUpSchema } from "@/validationSchema/signUp.validation";
 import "react-toastify/dist/ReactToastify.css";
 import { useSignUpUserMutation } from "@/provider/redux/queries/auth.query";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const [signUpUser, signUpUserResponse] = useSignUpUserMutation();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -40,6 +42,7 @@ const SignUp = () => {
       toast.error(error?.data?.message || "Something went wrong");
     } else {
       toast.success({ data }?.data?.message || "Your account has been created");
+      router.push("/login");
     }
   };
 
