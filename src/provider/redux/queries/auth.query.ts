@@ -43,6 +43,13 @@ export const authApi = createApi({
         },
       }),
     }),
+    forgotPassword: builder.mutation<any, any>({
+      query: (obj) => ({
+        url: `/auth/forgot-password`,
+        method: "POST",
+        body: obj,
+      }),
+    }),
   }),
 });
 
@@ -52,4 +59,5 @@ export const {
   useSignUpUserMutation,
   useLoginUserMutation,
   useUserProfileQuery,
+  useForgotPasswordMutation,
 } = authApi;
