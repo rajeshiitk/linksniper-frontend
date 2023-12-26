@@ -3,11 +3,11 @@ import { useForgotPasswordMutation } from "@/provider/redux/queries/auth.query";
 import {
   IForgotPassword,
   forgotPasswordSchema,
-} from "@/validationSchema/login.validation";
+} from "@/validationSchema/forgotPassword.validaton";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ToastContainer, toast } from "react-toastify";
@@ -15,7 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const ForgotPassword = () => {
   const [forgotPassword, forgotPasswordResponse] = useForgotPasswordMutation();
-  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -38,7 +38,6 @@ const ForgotPassword = () => {
       setValue("email", "");
 
       toast.success(data?.message);
-      // router.replace("/");
     }
   };
   return (
