@@ -43,8 +43,8 @@ const Login = () => {
       toast.error(error?.data?.message);
     } else {
       console.log(data);
-
       toast.success(data?.message);
+      router.replace("/login");
     }
   };
   return (
@@ -132,6 +132,13 @@ const Login = () => {
                     <button type="reset" className="-ml-3 w-max p-3">
                       <span className="text-sm tracking-wide text-sky-600 dark:text-sky-400">
                         Create new account
+                      </span>
+                    </button>
+                  </Link>
+                  <Link href="/login">
+                    <button type="reset" className="-ml-3 w-max p-3">
+                      <span className="text-sm tracking-wide text-sky-600 dark:text-sky-400">
+                        Login
                       </span>
                     </button>
                   </Link>

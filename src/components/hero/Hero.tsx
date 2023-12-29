@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import GenerateLink from "./GenerateLink";
 
 const Hero = () => {
   return (
@@ -21,40 +22,7 @@ const Hero = () => {
             Condense, share, and elevate your online influence effortlessly
           </p>
           <div>
-            <form action="" className="w-full mt-12">
-              <div className="relative flex items-center px-2 p-1 rounded-full bg-white dark:bg-gray-900 border dark:border-gray-700 border-primary/10 shadow-md md:p-2 lg:pr-3">
-                <input
-                  placeholder="Paste link here"
-                  className="w-full p-4 rounded-full placeholder-gray-600 dark:placeholder-white dark:text-slate-400 bg-transparent outline-none"
-                  type="url"
-                />
-                <div className="md:pr-1.5 lg:pr-0">
-                  <button
-                    type="button"
-                    title="Start buying"
-                    className="relative h-12 w-20 sm:w-auto ml-auto sm:px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary dark:before:bg-primaryLight before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
-                  >
-                    <span className="relative hidden w-max text-white dark:text-gray-900 font-semibold md:block">
-                      Generate Link
-                    </span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="relative h-6 w-6 mx-auto text-white dark:text-gray-900 md:hidden"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </form>
+            <GenerateLink />
           </div>
           {/* <div className="mt-12 flex gap-6 lg:gap-12 justify-between grayscale dark:grayscale-0">
           <Image
