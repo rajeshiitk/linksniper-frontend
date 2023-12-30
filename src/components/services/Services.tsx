@@ -6,7 +6,7 @@ const Services = () => {
     <div className="container relative min-h-screen m-auto px-6 text-gray-500 md:px-12">
       <div
         aria-hidden="true"
-        className="absolute inset-0 my-auto w-96 h-32 rotate-45 bg-gradient-to-l from-primaryLight to-secondaryLight blur-3xl opacity-30 dark:opacity-20"
+        className="absolute inset-0 my-auto w-32 sm:w-96 h-32 rotate-45 bg-gradient-to-l from-primaryLight to-secondaryLight blur-3xl opacity-30 dark:opacity-20"
       ></div>
       <div className="m-auto text-center lg:w-7/12">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">
