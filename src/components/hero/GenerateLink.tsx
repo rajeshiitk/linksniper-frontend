@@ -10,9 +10,25 @@ import Image from "next/image";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Loader from "../loader/Loader";
+import { toast } from "react-toastify";
+import { set } from "zod";
 
 const GenerateLink = () => {
-  const [generateLink, generateLinkResponse] = useGenerateLinkMutation();
+  const [generateLink, generateLinkResponse] = useGenerateLinkMutation({
+    fixedCacheKey: "generateLink",
+  });
+
+  // scroll to content section function
+  const scrollToSection = (sectionId: string) => {
+    const sectionElement = document.getElementById(sectionId);
+    if (sectionElement) {
+      console.log(sectionElement);
+      sectionElement.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
   const {
     register,
     handleSubmit,
@@ -31,9 +47,15 @@ const GenerateLink = () => {
     if (error) {
       console.log(error);
     } else {
-      console.log(data);
+      if (data?.shortId) {
+        toast.success("Link Generated Successfully 🎉 ");
+        setTimeout(() => {
+          scrollToSection("content");
+        }, 1000);
+      }
     }
   };
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full mt-12">
@@ -76,19 +98,6 @@ const GenerateLink = () => {
           <p className="text-red-700">{errors.originalUrl?.message}</p>
         )}
       </form>
-      <div className="flex items-stretch mt-2">
-        <div className="relative w-full">
-          <div className="absolute text-gray-500 flex items-center px-2 border-r h-full"></div>
-          <input
-            id="link"
-            className="pr-24 text-gray-600 bg-gray-100 focus:outline-none focus:border focus:border-indigo-700 font-normal w-full h-10 flex items-center pl-12 text-sm border-gray-300 rounded border"
-            value={`https://localhost:3001/${generateLinkResponse.data?.shortId}}`}
-          />
-          <button className="focus:ring-2 focus:ring-offset-2 rounded-md focus:ring-indigo-600 absolute right-0 top-0 transition duration-150 ease-in-out hover:bg-indigo-600 focus:outline-none bg-indigo-700 rounded-r text-white px-5 h-10 text-sm">
-            Copy
-          </button>
-        </div>
-      </div>
     </>
   );
 };

@@ -4,7 +4,7 @@ import GenerateLink from "./GenerateLink";
 
 const Hero = () => {
   return (
-    <div className="pt-32 md:py-12 xl:container  min-h-screen  dark:bg-slate-900 m-auto px-6 md:px-12 md:mt-16 ">
+    <div className="pt-32 md:py-12  xl:container  min-h-screen  dark:bg-slate-900 m-auto px-6 md:px-12 md:mt-16 ">
       <div
         aria-hidden="true"
         className="absolute inset-0 my-auto w-32 sm:w-96 h-32 rotate-45 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl opacity-50 dark:opacity-30"

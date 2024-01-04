@@ -27,6 +27,7 @@
     @apply block lg:flex;
   }
 }
+
 /* 
 body {
   color: rgb(var(--foreground-rgb));
