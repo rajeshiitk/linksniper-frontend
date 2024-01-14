@@ -18,6 +18,7 @@ function Content() {
 
   const [copied, setCopied] = useState(false);
   console.log(data, status);
+  console.log(data, status);
 
   const handleCopy = ({ shortId }: { shortId: string }): void => {
     if (shortId) {
