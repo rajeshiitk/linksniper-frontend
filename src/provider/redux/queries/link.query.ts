@@ -14,9 +14,15 @@ export const linkApi = createApi({
         body: obj,
       }),
     }),
+    getAnalytics: builder.mutation<any, any>({
+      query: ({ shortId }) => ({
+        url: `/url/analytics/${shortId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGenerateLinkMutation } = linkApi;
+export const { useGenerateLinkMutation, useGetAnalyticsMutation } = linkApi;

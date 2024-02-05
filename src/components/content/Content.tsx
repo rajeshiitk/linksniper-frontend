@@ -4,7 +4,11 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import { useGetAnalyticsMutation } from "@/provider/redux/queries/link.query";
+import { json } from "stream/consumers";
 function Content() {
+  const [getAnalytics, getAnalyticsResponse] = useGetAnalyticsMutation({});
   // const [generateLink, generateLinkResponse] = useGenerateLinkMutation({
   //   fixedCacheKey: "generateLink",
   // });
@@ -35,6 +39,21 @@ function Content() {
     }
   };
 
+  // analytics
+  const handleGetAnalytics = async (shortId: any) => {
+    console.log(shortId);
+    const { data, error } = (await getAnalytics(shortId)) as {
+      data: any | undefined;
+      error: FetchBaseQueryError;
+    };
+    if (error) {
+      console.log(error);
+    } else {
+      alert(JSON.stringify(data));
+      console.log(data);
+    }
+  };
+
   return (
     <>
       <ToastContainer />
@@ -46,21 +65,27 @@ function Content() {
                 aria-hidden="true"
                 className="absolute inset-0 m-auto w-full  rotate-10 bg-gradient-to-r from-primaryLight to-secondaryLight blur-3xl opacity-10 dark:opacity-20"
               ></div>
-              <h3 className="text-center text-2xl text-slate-900 dark:text-slate-200">
+              <h3 className="text-center text-2xl text-slate-900 dark:text-slate-100">
                 Your Shorten Url is Ready
               </h3>
               <div className="flex flex-col items-center   py-10 mt-2 h-full">
                 <div
                   id="link"
-                  className=" z-10 my-auto bg-transparent  text-gray-600 text-sm  md:text-lg font-semibold  w-full h-10   rounded break-all  "
+                  className=" z-10 my-auto bg-transparent  text-gray-600 text-sm  md:text-lg font-semibold  w-full h-10 dark:text-slate-100  rounded break-all  "
                 >
                   {`${process.env.NEXT_PUBLIC_BACKEND_URL}/${data?.shortId}`}
                 </div>
                 <button
                   onClick={() => {
+                    handleGetAnalytics({ shortId: data?.shortId });
+                  }}
+                  className="bg-green-500 hover:bg-green-700 z-10 w-fit absolute top-2 right-2  h-10 text-white font-bold py-2 px-4  rounded-full"
+                >
+                  Get analytics
+                </button>
+                <button
+                  onClick={() => {
                     handleCopy({ shortId: data?.shortId });
-                    console.log({ shortId: data?.shortId });
-                    console.log("hii");
                   }}
                   className={`bg-blue-500 z-10 w-1/3 hover:bg-blue-700 h-10 text-white font-bold py-2 px-4 rounded ${
                     copied ? "bg-green-500 hover:bg-green-500" : ""

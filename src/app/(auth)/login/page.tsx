@@ -24,8 +24,8 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<ILogin> = async (dat) => {
     const { data, error } = (await loginUser(dat)) as {
-      data: any | undefined;
-      error: FetchBaseQueryError;
+      data: { token: string; message: string } | undefined;
+      error: FetchBaseQueryError | undefined | any;
     };
     if (error) {
       toast.error(error?.data?.message);

@@ -2,13 +2,13 @@ import React from "react";
 
 const Pricing = () => {
   return (
-    <div className="xl:container min-h-screen m-auto px-6 py-20 md:px-12 lg:px-20">
+    <div className="xl:container min-h-scree un m-auto px-6 py-20 md:px-12 lg:px-20">
       <div className="m-auto text-center ">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">
           LinkSniper subscription gives you access to our premium features.
         </h2>
       </div>
-      <div className="mt-12 grid items-center gap-6 md:grid-cols-2 lg:flex lg:space-x-8">
+      <div className="mt-12 justify-evenly grid items-center gap-6 md:grid-cols-2 lg:flex lg:space-x-8">
         <div className="group relative md:col-span-1 lg:w-[32%]">
           <div
             aria-hidden="true"
@@ -24,7 +24,7 @@ const Pricing = () => {
                   $
                 </span>
                 <span className="leading-0 text-8xl font-bold text-gray-800 dark:text-white">
-                  19
+                  1
                 </span>
               </div>
               <span className="absolute right-9 bottom-2 text-xl font-bold text-primary">
@@ -63,7 +63,7 @@ const Pricing = () => {
           </div>
         </div>
 
-        <div className="group relative row-start-1 md:col-span-2 lg:w-[36%]">
+        {/* <div className="group relative row-start-1 md:col-span-2 lg:w-[36%]">
           <div
             aria-hidden="true"
             className="absolute top-0 h-full w-full rounded-3xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-2xl shadow-gray-600/10 dark:shadow-none transition duration-500 group-hover:scale-105 lg:group-hover:scale-110"
@@ -134,7 +134,7 @@ const Pricing = () => {
               </span>
             </button>
           </div>
-        </div>
+        </div> */}
 
         <div className="group relative md:col-span-1 lg:w-[32%]">
           <div
