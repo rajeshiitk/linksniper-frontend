@@ -33,9 +33,15 @@ const SignUp = () => {
     formData.append("password", dat.password);
     formData.append("image", dat.profile[0]);
 
-    const { data, error } = (await signUpUser(formData)) as {
+    const {
+      data,
+      error,
+    }: {
       data: any | undefined;
-      error: FetchBaseQueryError;
+      error: FetchBaseQueryError & { data: { message: string } };
+    } = (await signUpUser(formData)) as {
+      data: any | undefined;
+      error: FetchBaseQueryError & { data: { message: string } };
     };
 
     if (error) {

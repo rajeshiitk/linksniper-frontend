@@ -1,14 +1,17 @@
+"use client";
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slices/user.slice";
 import { authApi } from "./queries/auth.query";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { linkApi } from "./queries/link.query";
+import themeReducer from "./slices/theme.slice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     [authApi.reducerPath]: authApi.reducer,
     [linkApi.reducerPath]: linkApi.reducer,
+    theme: themeReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()

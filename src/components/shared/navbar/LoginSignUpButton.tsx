@@ -31,8 +31,8 @@ const LoginSignUpButton = () => {
 
   return (
     <AuthLayout>
-      <div className="w-full space-y-2 border-primary/10 dark:border-gray-700 flex flex-col -ml-1 sm:flex-row lg:space-y-0 md:w-max lg:border-l">
-        {user ? (
+      <div className="w-full space-y-2 b border-none flex flex-col  sm:flex-row lg:space-y-0 md:w-max lg:border-l">
+        {!!user ? (
           <button
             onClick={logoutHandler}
             className="relative flex h-9 ml-auto items-center justify-center sm:px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary dark:before:bg-primaryLight before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
