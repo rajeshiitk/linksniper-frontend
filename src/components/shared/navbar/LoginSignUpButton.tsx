@@ -24,6 +24,7 @@ const LoginSignUpButton = () => {
       // window.location.reload();
     } catch (err) {
       console.log(err);
+      //@ts-ignore
       toast.error(err?.message);
     }
   };

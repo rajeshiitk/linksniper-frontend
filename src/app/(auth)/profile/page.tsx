@@ -26,10 +26,12 @@ const Profile = () => {
                 />
                 <div className="py-2">
                   <h3 className="font-bold text-2xl text-gray-800 dark:text-white mb-1">
-                    {user?.name}
+                    {/* {user?.name} */}
+                    name
                   </h3>
                   <div className="inline-flex text-gray-700 dark:text-gray-300 items-center">
-                    {user?.email}
+                    {/* {user?.email} */}
+                    Email
                   </div>
                 </div>
               </div>
@@ -44,7 +46,7 @@ const Profile = () => {
             </div>
             <div className="px-4 py-4">
               <div className="flex gap-2 items-center text-gray-800 dark:text-gray-300 mb-4">
-                Joined at {user?.createdAt}
+                {/* Joined at {user?.createdAt} */}
               </div>
             </div>
           </div>

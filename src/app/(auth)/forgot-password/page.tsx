@@ -32,7 +32,9 @@ const ForgotPassword = () => {
       error: FetchBaseQueryError;
     };
     if (error) {
+      // @ts-ignore
       toast.error(error?.data?.message);
+      // toast.error("Something went wrong");
     } else {
       console.log(data);
       setValue("email", "");

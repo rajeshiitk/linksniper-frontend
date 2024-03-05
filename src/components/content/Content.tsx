@@ -14,6 +14,7 @@ function Content() {
   // });
   const { data = {}, status } = useSelector(
     (state) =>
+      // @ts-ignore
       state?.linkApi?.mutations?.generateLink || {
         data: undefined,
         status: undefined,

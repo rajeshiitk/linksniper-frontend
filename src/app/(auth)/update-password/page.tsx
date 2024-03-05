@@ -39,6 +39,7 @@ const Login = () => {
       error: FetchBaseQueryError;
     };
     if (error) {
+      //@ts-ignore
       toast.error(error?.data?.message);
     } else {
       console.log(data);

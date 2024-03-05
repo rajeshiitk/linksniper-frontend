@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSignUpUserMutation } from "@/provider/redux/queries/auth.query";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const SignUp = () => {
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -178,6 +179,7 @@ const SignUp = () => {
                     />
                   </div>
                   {errors?.profile?.message && (
+                    // @ts-ignore
                     <p className="text-red-700">{errors?.profile?.message}</p>
                   )}
                   {profileImage && (
@@ -201,11 +203,11 @@ const SignUp = () => {
                       {signUpUserResponse.isLoading ? "Loading..." : "Sign Up"}
                     </span>
                   </button>
-                  <button type="reset" className="-ml-3 w-max p-3">
+                  <Link href="/login" className="-ml-3 w-max p-3">
                     <span className="text-sm tracking-wide text-sky-600 dark:text-sky-400">
                       Login to existing account
                     </span>
-                  </button>
+                  </Link>
                 </div>
               </form>
             </div>
