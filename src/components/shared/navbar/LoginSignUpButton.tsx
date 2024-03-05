@@ -2,7 +2,6 @@
 import AuthLayout from "@/app/(auth)/auth.layout";
 import { removeUser } from "@/provider/redux/slices/user.slice";
 import { RootState } from "@/provider/redux/store";
-import { revalidatePath } from "next/cache";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -32,7 +31,7 @@ const LoginSignUpButton = () => {
   return (
     <AuthLayout>
       <div className="w-full space-y-2 b border-none flex flex-col  sm:flex-row lg:space-y-0 md:w-max lg:border-l">
-        {!!user ? (
+        {user ? (
           <button
             onClick={logoutHandler}
             className="relative flex h-9 ml-auto items-center justify-center sm:px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary dark:before:bg-primaryLight before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"

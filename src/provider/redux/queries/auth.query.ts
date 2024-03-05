@@ -1,5 +1,4 @@
 "use client";
-import { ILogin } from "@/validationSchema/login.validation";
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -18,6 +17,7 @@ interface UserLoginData {
 // Define a service using a base URL and expected endpoints
 export const authApi = createApi({
   reducerPath: "authApi",
+  // eslint-disable-next-line no-undef
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   endpoints: (builder) => ({
     signUpUser: builder.mutation<UserData, any>({

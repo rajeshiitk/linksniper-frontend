@@ -1,6 +1,5 @@
 "use client";
 import Navbar from "@/components/shared/Navbar";
-import { useUserProfileQuery } from "@/provider/redux/queries/auth.query";
 import Image from "next/image";
 import React from "react";
 import AuthLayout from "../auth.layout";

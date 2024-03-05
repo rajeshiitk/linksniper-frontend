@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -6,9 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useGetAnalyticsMutation } from "@/provider/redux/queries/link.query";
-import { json } from "stream/consumers";
 function Content() {
-  const [getAnalytics, getAnalyticsResponse] = useGetAnalyticsMutation({});
+  const [getAnalytics] = useGetAnalyticsMutation({});
   // const [generateLink, generateLinkResponse] = useGenerateLinkMutation({
   //   fixedCacheKey: "generateLink",
   // });
@@ -27,6 +27,7 @@ function Content() {
   const handleCopy = ({ shortId }: { shortId: string }): void => {
     if (shortId) {
       navigator.clipboard.writeText(
+        // eslint-disable-next-line no-undef
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/${shortId}`
       );
       setCopied(true);
@@ -73,6 +74,7 @@ function Content() {
                   id="link"
                   className=" z-10 my-auto bg-transparent  text-gray-600 text-sm  md:text-lg font-semibold  w-full h-10 dark:text-slate-100  rounded break-all  "
                 >
+                  // eslint-disable-next-line no-undef
                   {`${process.env.NEXT_PUBLIC_BACKEND_URL}/${data?.shortId}`}
                 </div>
                 <button
