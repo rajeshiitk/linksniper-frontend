@@ -22,8 +22,6 @@ function Content() {
   );
 
   const [copied, setCopied] = useState(false);
-  console.log(data, status);
-  console.log(data, status);
 
   const handleCopy = ({ shortId }: { shortId: string }): void => {
     if (shortId) {
@@ -43,7 +41,6 @@ function Content() {
 
   // analytics
   const handleGetAnalytics = async (shortId: any) => {
-    console.log(shortId);
     const { data, error } = (await getAnalytics(shortId)) as {
       data: any | undefined;
       error: FetchBaseQueryError;

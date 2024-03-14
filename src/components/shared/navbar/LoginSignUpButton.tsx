@@ -37,7 +37,7 @@ const LoginSignUpButton = () => {
             onClick={logoutHandler}
             className="relative flex h-9 ml-auto items-center justify-center sm:px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary dark:before:bg-primaryLight before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
           >
-            <span className="relative text-sm font-semibold text-white dark:text-gray-900">
+            <span className="relative px-2 text-sm font-semibold text-white dark:text-gray-900">
               Logout
             </span>
           </button>

@@ -25,9 +25,7 @@ const SignUp = () => {
   });
 
   const onSubmit: SubmitHandler<ISignUp> = async (dat) => {
-    console.log(register("profile") || "no file");
     // TODO verify confirm password
-    console.log(dat);
     const formData = new FormData();
     formData.append("name", dat.name);
     formData.append("email", dat.email);

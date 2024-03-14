@@ -17,7 +17,6 @@ const Login = () => {
   const [updatePassword, updatePasswordResponse] = useUpdatePasswordMutation();
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
-  //   console.log(token);
   const router = useRouter();
 
   if (!token) {
@@ -33,7 +32,6 @@ const Login = () => {
   });
 
   const onSubmit: SubmitHandler<IUpdatePassword> = async (dat) => {
-    console.log(dat);
     const { data, error } = (await updatePassword(dat)) as {
       data: any | undefined;
       error: FetchBaseQueryError;
@@ -42,7 +40,6 @@ const Login = () => {
       //@ts-ignore
       toast.error(error?.data?.message);
     } else {
-      console.log(data);
       toast.success(data?.message);
       router.replace("/login");
     }

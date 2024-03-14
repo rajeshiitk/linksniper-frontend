@@ -18,7 +18,6 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   if (!isLoading && data) {
-    console.log(data?.user);
     dispatch(setUser(data?.user));
   }
 

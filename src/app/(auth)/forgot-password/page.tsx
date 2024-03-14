@@ -26,7 +26,6 @@ const ForgotPassword = () => {
   });
 
   const onSubmit: SubmitHandler<IForgotPassword> = async (dat) => {
-    console.log(dat);
     const { data, error } = (await forgotPassword(dat)) as {
       data: any | undefined;
       error: FetchBaseQueryError;
@@ -36,7 +35,6 @@ const ForgotPassword = () => {
       toast.error(error?.data?.message);
       // toast.error("Something went wrong");
     } else {
-      console.log(data);
       setValue("email", "");
 
       toast.success(data?.message);

@@ -21,7 +21,6 @@ const GenerateLink = () => {
   const scrollToSection = (sectionId: string) => {
     const sectionElement = document.getElementById(sectionId);
     if (sectionElement) {
-      console.log(sectionElement);
       sectionElement.scrollIntoView({
         behavior: "smooth",
         block: "start",
@@ -37,8 +36,6 @@ const GenerateLink = () => {
   });
 
   const onSubmit: SubmitHandler<IGenerateLink> = async (dat) => {
-    console.log(dat);
-
     const { data, error } = (await generateLink(dat)) as {
       data: any | undefined;
       error: FetchBaseQueryError;

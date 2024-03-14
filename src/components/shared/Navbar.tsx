@@ -8,11 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { navbar } from "@/constants/constants";
 import ToggleTheme from "./navbar/toggleTheme";
 
-// import { useSelector } from "react-redux";
-
 const Navbar = () => {
-  // const user = useSelector((state: RootState) => state.user.user);
-
   return (
     <header className="dark:bg-slate-900/60 z-50 sticky top-0 left-0">
       <ToastContainer />
@@ -34,13 +30,10 @@ const Navbar = () => {
                 className="flex space-x-2 items-center"
               >
                 <div aria-hidden="true" className="flex space-x-1">
-                  {/* <div className="h-4 w-4 rounded-full bg-gray-900 dark:bg-gray-200"></div>
-                    <div className="h-6 w-2 bg-primary dark:bg-primaryLight"></div> */}
                   <Image
                     src="/link_shortener.svg"
                     width={36}
                     height={36}
-                    // className="h-8 sm:h-10 w-auto lg:h-12"
                     alt="logo"
                   />
                 </div>
@@ -62,8 +55,8 @@ const Navbar = () => {
                 ></div>
               </label>
             </div>
-            <div className=" hidden w-full flex-wrap justify-end items-center mb-16 space-y-8 p-6 border border-gray-100 rounded-3xl shadow-2xl shadow-gray-300/20 bg-white  lg:space-y-0 lg:p-0 lg:m-0 lg:flex md:flex-nowrap lg:bg-transparent lg:w-7/12 lg:shadow-none dark:shadow-none dark:border-gray-700 lg:border-0">
-              <div className="text-gray-600 dark:text-gray-300 lg:pr-4">
+            <div className=" hidden w-full flex-wrap justify-end items-center mb-16 space-y-8 p-6 border border-gray-100 rounded-3xl shadow-2xl shadow-gray-300/20   lg:space-y-0 lg:p-0 lg:m-0 lg:flex md:flex-nowrap lg:bg-transparent lg:w-7/12 lg:shadow-none dark:shadow-none dark:border-gray-700 lg:border-0">
+              <div className="text-gray-600  dark:text-gray-300 lg:pr-4">
                 <ul className="space-y-6 tracking-wide font-medium text-base lg:text-sm lg:flex lg:space-y-0">
                   {navbar.map((item) => (
                     <li key={item.value}>
