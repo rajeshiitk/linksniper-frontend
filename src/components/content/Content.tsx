@@ -25,8 +25,8 @@ function Content() {
 
   const handleCopy = ({ shortId }: { shortId: string }): void => {
     if (shortId) {
+      // eslint-disable-next-line no-undef
       navigator.clipboard.writeText(
-        // eslint-disable-next-line no-undef
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/${shortId}`
       );
       setCopied(true);
