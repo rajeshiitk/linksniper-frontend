@@ -72,7 +72,6 @@ function Content() {
                   id="link"
                   className=" z-10 my-auto bg-transparent  text-gray-600 text-sm  md:text-lg font-semibold  w-full h-10 dark:text-slate-100  rounded break-all  "
                 >
-                  // eslint-disable-next-line no-undef
                   {`${process.env.NEXT_PUBLIC_BACKEND_URL}/${data?.shortId}`}
                 </div>
                 <button
